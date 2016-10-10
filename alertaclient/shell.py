@@ -513,7 +513,7 @@ class AlertCommand(object):
                         event='HeartbeatFail',
                         correlate=['HeartbeatFail', 'HeartbeatSlow', 'HeartbeatOK'],
                         group='System',
-                        environment='Production',
+                        environment=args.environment,
                         service=['Alerta'],
                         severity='major',
                         value='{}'.format(since),
@@ -1438,6 +1438,12 @@ class AlertaShell(object):
             default=False,
             help='Delete all expired heartbeats',
             action='store_true'
+        )
+        parser_heartbeats.add_argument(
+            '-E',
+            '--environment',
+            default='Production',
+            help='environment eg. "production", "development", "testing"'
         )
         parser_heartbeats.set_defaults(func=cli.heartbeats)
 
